@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Умный сайт с Yandex ИИ (Web 4.0)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Умный сайт с Yandex ИИ</h1>
+    <textarea id="text-input" placeholder="Введите текст здесь..."></textarea>
+    <br>
+    <select id="voice-select">
+        <option value="oksana">Оксана (женский)</option>
+        <option value="jane">Джейн (женский)</option>
+        <option value="ermil">Ермил (мужской)</option>
+    </select>
+    <button onclick="analyzeText()">Анализировать текст</button>
+    <button onclick="synthesizeSpeech()">Преобразовать в речь</button>
+    <div class="output" id="analysis-result"></div>
+    <audio id="audio-player" controls></audio>
+
+    <script>
+        async function analyzeText() {
+            const text = document.getElementById('text-input').value;
+            const response = await fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const result = data.result;
+                let output = `<strong>Тональность:</strong> ${result.classification.label}<br>`;
+                output += `<strong>Ключевые слова:</strong> ${result.keywords.join(', ')}`;
+                document.getElementById('analysis-result').innerHTML = output;
+            } else {
+                console.error('Ошибка:', await response.text());
+            }
+        }
+
+        async function synthesizeSpeech() {
+            const text = document.getElementById('text-input').value;
+            const voice = document.getElementById('voice-select').value;
+            const response = await fetch('/synthesize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text, voice })
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const audioUrl = URL.createObjectURL(blob);
+                const audioPlayer = document.getElementById('audio-player');
+                audioPlayer.src = audioUrl;
+                audioPlayer.play();
+            } else {
+                console.error('Ошибка:', await response.text());
+            }
+        }
+    </script>
+</body>
+</html>

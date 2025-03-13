@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #5c6bc0;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 80%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #5c6bc0;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: none;
+}
+
+select {
+    width: 200px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #5c6bc0;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #5c6bc0;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3949ab;
+}
+
+.output {
+    width: 80%;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: white;
+    border: 2px solid #5c6bc0;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+audio {
+    width: 80%;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    textarea, .output, audio {
+        width: 95%;
+    }
+
+    select {
+        width: 100%;
+    }
+}
